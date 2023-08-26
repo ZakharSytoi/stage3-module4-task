@@ -36,6 +36,7 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
 
     @Override
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TagDtoResponse> create(@RequestBody TagDtoRequest createRequest) {
         return new ResponseEntity<>(tagService.create(createRequest), HttpStatus.CREATED);
     }
@@ -52,7 +53,8 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
 
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Long id) {
-        return new ResponseEntity<>(tagService.deleteById(id), HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        tagService.deleteById(id);
     }
 }

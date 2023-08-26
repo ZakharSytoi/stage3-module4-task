@@ -4,15 +4,12 @@ import com.mjc.school.controller.BaseRestController;
 import com.mjc.school.service.CommentService;
 import com.mjc.school.service.dto.CommentDtoRequest;
 import com.mjc.school.service.dto.CommentDtoResponse;
-import com.mjc.school.service.dto.TagDtoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,6 +34,7 @@ public class CommentController implements BaseRestController<CommentDtoRequest, 
 
     @Override
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CommentDtoResponse> create(@RequestBody CommentDtoRequest createRequest) {
         return new ResponseEntity<>(commentService.create(createRequest), HttpStatus.CREATED);
     }
@@ -51,7 +49,8 @@ public class CommentController implements BaseRestController<CommentDtoRequest, 
 
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Long id) {
-        return new ResponseEntity<>(commentService.deleteById(id), HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        commentService.deleteById(id);
     }
 }

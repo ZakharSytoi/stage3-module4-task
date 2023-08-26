@@ -61,6 +61,7 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
 
     @Override
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<NewsDtoResponse> create(@RequestBody NewsDtoRequest createRequest) {
         return new ResponseEntity<>(newsService.create(createRequest), HttpStatus.CREATED);
     }
@@ -79,7 +80,8 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
 
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Long id) {
-        return new ResponseEntity<>(newsService.deleteById(id), HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        newsService.deleteById(id);
     }
 }

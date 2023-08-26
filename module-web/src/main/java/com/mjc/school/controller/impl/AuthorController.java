@@ -34,6 +34,7 @@ public class AuthorController implements BaseRestController<AuthorDtoRequest, Au
 
     @Override
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AuthorDtoResponse> create(@RequestBody AuthorDtoRequest createRequest) {
         return new ResponseEntity<>(authorService.create(createRequest), HttpStatus.CREATED);
     }
@@ -50,7 +51,8 @@ public class AuthorController implements BaseRestController<AuthorDtoRequest, Au
 
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable Long id) {
-        return new ResponseEntity<>(authorService.deleteById(id), HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        authorService.deleteById(id);
     }
 }

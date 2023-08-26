@@ -12,5 +12,5 @@ public interface BaseRestController<T, R, K>{
 
     ResponseEntity<R> update(Long id, T updateRequest);
 
-    ResponseEntity<Boolean> deleteById(K id);
+    void deleteById(K id);
 }
