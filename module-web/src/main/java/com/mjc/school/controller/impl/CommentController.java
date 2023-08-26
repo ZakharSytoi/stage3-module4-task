@@ -38,7 +38,7 @@ public class CommentController implements BaseRestController<CommentDtoRequest, 
     @Override
     @PostMapping
     public ResponseEntity<CommentDtoResponse> create(@RequestBody CommentDtoRequest createRequest) {
-        return new ResponseEntity<>(commentService.create(createRequest), HttpStatus.valueOf(201));
+        return new ResponseEntity<>(commentService.create(createRequest), HttpStatus.CREATED);
     }
 
     @Override
@@ -52,6 +52,6 @@ public class CommentController implements BaseRestController<CommentDtoRequest, 
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
     public ResponseEntity<Boolean> deleteById(@PathVariable Long id) {
-        return new ResponseEntity<>(commentService.deleteById(id), HttpStatus.valueOf(204));
+        return new ResponseEntity<>(commentService.deleteById(id), HttpStatus.NO_CONTENT);
     }
 }
